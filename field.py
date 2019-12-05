@@ -1,3 +1,5 @@
+# use singleton pattern to return visible 'XxxField'class instance
+
 from collections import defaultdict
 from line_processor import *
 
@@ -19,6 +21,70 @@ class DictionaryHandler(object):
             values = list(dictionary.values())
 
         return values
+
+class DefaultField(object):
+
+    instance = _Default()
+
+    def __new__(cls):
+        return cls.instance
+
+class FileReceivedField(DefaultField):
+
+    instance = _FileReceivedField()
+
+class BroadcastField(DefaultField):
+    
+    instance = _BroadcastField()
+
+class MseField(DefaultField):
+
+    instance = _MseField(FileReceivedField())
+
+class SsimField(DefaultField):
+
+    instance = _SsimField(FileReceivedField())
+
+class FileLossField(DefaultField):
+
+    instance = _FileLossField()
+    
+class MseSsimField(DefaultField):
+
+    instance = _MseSsimField()
+
+class FileLossRateField(DefaultField):
+
+    instance = _FileLossRateField(FileLossField(), FileReceivedField())
+
+class TestField(DefaultField):
+
+    instance = _TestField()
+
+class InstrMissRateField(DefaultField):
+
+    instance = _InstrMissRateField()
+
+class InstrNumberField(DefaultField):
+
+    instance = _InstrNumberField()
+
+class DataMissRateField(DefaultField):
+
+    instance = _DataMissRateField()
+
+class DataNumberField(DefaultField):
+
+    instance = _DataNumberField()
+
+class DataPercentageField(DefaultField):
+
+    instance = _DataPercentageField(InstrNumberField(), DataNumberField())
+
+class Level2MissRateField(DefaultField):
+
+    instance = _Level2MissRateField()
+
 
 class _Default(object):
 
@@ -255,65 +321,3 @@ class _Level2MissRateField(_Default):
         miss_rate = self.get_field_param()
         self._field_dictionary[key].append(miss_rate)
 
-class DefaultField(object):
-
-    instance = _Default()
-
-    def __new__(cls):
-        return cls.instance
-
-class FileReceivedField(DefaultField):
-
-    instance = _FileReceivedField()
-
-class BroadcastField(DefaultField):
-    
-    instance = _BroadcastField()
-
-class MseField(DefaultField):
-
-    instance = _MseField(FileReceivedField())
-
-class SsimField(DefaultField):
-
-    instance = _SsimField(FileReceivedField())
-
-class FileLossField(DefaultField):
-
-    instance = _FileLossField()
-    
-class MseSsimField(DefaultField):
-
-    instance = _MseSsimField()
-
-class FileLossRateField(DefaultField):
-
-    instance = _FileLossRateField(FileLossField(), FileReceivedField())
-
-class TestField(DefaultField):
-
-    instance = _TestField()
-
-class InstrMissRateField(DefaultField):
-
-    instance = _InstrMissRateField()
-
-class InstrNumberField(DefaultField):
-
-    instance = _InstrNumberField()
-
-class DataMissRateField(DefaultField):
-
-    instance = _DataMissRateField()
-
-class DataNumberField(DefaultField):
-
-    instance = _DataNumberField()
-
-class DataPercentageField(DefaultField):
-
-    instance = _DataPercentageField(InstrNumberField(), DataNumberField())
-
-class Level2MissRateField(DefaultField):
-
-    instance = _Level2MissRateField()
