@@ -13,7 +13,7 @@ def main():
 
     print('[INFO] start extracting...')
 
-    Extractor.extract_data_to_csv_from_folder('test')
+#    Extractor.extract_data_to_csv_from_folder('test')
     Extractor.extract_data_to_csv_from_folder('n2nlog')
     Extractor.extract_data_to_csv_from_folder('output')
 
