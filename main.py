@@ -5,7 +5,7 @@ from extractor import Extractor
 from collections import namedtuple
 import argparse
 
-def main(directories):
+def main():
     fields_and_line_processors = build_fields_and_line_processors()
     fields = get_fields(fields_and_line_processors)
 
@@ -14,7 +14,7 @@ def main(directories):
 
     print('[INFO] start extracting...')
     
-    for directory in directories:
+    for directory in args.directories:
         Extractor.extract_data_to_csv_from_folder(directory)
 
     print('[INFO] done')
@@ -63,5 +63,5 @@ if __name__ == '__main__':
     parser.add_argument('directories', nargs='+')
     args = parser.parse_args()
 
-    main(args.directories)
+    main()
 
