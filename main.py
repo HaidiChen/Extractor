@@ -3,23 +3,23 @@ from field_writer import FieldWriter
 from line_processor import LineProcessorFactory
 from extractor import Extractor
 from collections import namedtuple
+import argparse
 
-def main():
-    fields_and_line_processors = setup_fields_and_line_processors()
+def main(directories):
+    fields_and_line_processors = build_fields_and_line_processors()
     fields = get_fields(fields_and_line_processors)
 
     setup_line_processors(fields_and_line_processors)
     setup_field_writer(fields)
 
     print('[INFO] start extracting...')
-
-    Extractor.extract_data_to_csv_from_folder('test')
-    Extractor.extract_data_to_csv_from_folder('n2nlog')
-    Extractor.extract_data_to_csv_from_folder('output')
+    
+    for directory in directories:
+        Extractor.extract_data_to_csv_from_folder(directory)
 
     print('[INFO] done')
 
-def setup_fields_and_line_processors():
+def build_fields_and_line_processors():
     fields_and_line_processors = [
 
             FieldProcessor(TestField(), TestFieldLineProcessor()),
@@ -43,19 +43,25 @@ def setup_fields_and_line_processors():
 
     return fields_and_line_processors
 
-def setup_field_writer(fields):
-    for field in fields:
-        FieldWriter.add_field(field)
-
-def setup_line_processors(fields_and_line_processors):
-    for fp in fields_and_line_processors:
-        LineProcessorFactory.add_line_processor(fp.field, fp.line_processor)
-
 def get_fields(fields_and_line_processors):
     fields = [item.field for item in fields_and_line_processors]
 
     return fields
 
+def setup_line_processors(fields_and_line_processors):
+    for fp in fields_and_line_processors:
+        LineProcessorFactory.add_line_processor(fp.field, fp.line_processor)
+
+def setup_field_writer(fields):
+    for field in fields:
+        FieldWriter.add_field(field)
+
 if __name__ == '__main__':
     FieldProcessor = namedtuple('FieldProcessor', ['field', 'line_processor'])
-    main()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('directories', nargs='+')
+    args = parser.parse_args()
+
+    main(args.directories)
+
