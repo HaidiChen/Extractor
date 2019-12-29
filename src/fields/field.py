@@ -1,7 +1,7 @@
 # use singleton pattern to return visible 'XxxField'class instance
 
 from collections import defaultdict
-from line_processor import *
+from lines.line_processor import *
 
 class DictionaryHandler(object):
 

@@ -1,6 +1,6 @@
-from line_processor import LineProcessor
-from path_helper import PathHelper
-from field_writer import FieldWriter
+from lines.line_processor import LineProcessor
+from utils.path_helper import PathHelper
+from fields.field_writer import FieldWriter
 
 class Extractor(object):
     

@@ -1,6 +1,5 @@
-from line_processor_types import *
+from lines.line_processor_types import *
 from collections import defaultdict
-from line_processor_types import DefaultLineProcessor
 
 class LineProcessor(object):
 

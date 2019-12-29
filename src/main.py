@@ -1,7 +1,6 @@
-from field import *
-from field_writer import FieldWriter
-from line_processor import LineProcessorFactory
-from extractor import Extractor
+from fields import *
+from lines import *
+from utils import *
 from collections import namedtuple
 import argparse
 

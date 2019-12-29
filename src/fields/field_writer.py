@@ -1,4 +1,4 @@
-from line_processor import *
+from lines.line_processor import *
 from collections import defaultdict
 
 class FieldWriter(object):
